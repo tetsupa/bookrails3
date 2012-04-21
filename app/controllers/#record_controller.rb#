@@ -37,7 +37,6 @@ class RecordController < ApplicationController
   end
 
   def select2
-    @books = Book.select('DISTINCT pblish').order('publish')
-  end
+    end
 
 end
