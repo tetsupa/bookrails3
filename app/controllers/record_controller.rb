@@ -32,7 +32,7 @@ class RecordController < ApplicationController
   end
 
   def select
-    @books = Book.where('price >= 2000').select('isbn, title, price')
+    @books = Book.where('price >= 2000').select('title, price')
     render 'hello/list'
   end
 
@@ -40,4 +40,15 @@ class RecordController < ApplicationController
     @books = Book.select('DISTINCT pblish').order('publish')
   end
 
+  def offset
+    @books = Book.order('published DESC').limit(3).offset(4)
+    render 'hello/list'
+  end
+
+  def page
+    page_size = 3
+    page_num = params[:id] == nil ? 0 : params[:id].to_i - 1
+    @books = Book.order('published DESC').limit(page_size).offset(page_size * page_num)
+    render 'hello/list'
+  end
 end
